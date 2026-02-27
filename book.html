@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table of Contents</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script>
+        // 放在 head 里执行，防止页面白光闪烁 (FOUC)
+        // 默认值改为 'dark'
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button onclick="window.location.href='index.html'" style="margin-bottom: 20px;">← Home</button>
+        <h2 id="book-title">Loading...</h2>
+        <ul id="toc-list" class="toc-list"></ul>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookId = urlParams.get('id');
+
+        async function loadTOC() {
+            document.getElementById('book-title').innerText = bookId.toUpperCase();
+            const res = await fetch(`books/${bookId}/toc.json`);
+            const toc = await res.json();
+            const list = document.getElementById('toc-list');
+
+            toc.forEach((chapter, index) => {
+                list.innerHTML += `<li><a href="reader.html?book=${bookId}&chapter=${index}">${chapter.title}</a></li>`;
+            });
+        }
+        loadTOC();
+    </script>
+</body>
+</html>

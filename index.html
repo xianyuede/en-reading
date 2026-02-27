@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xianyue Reader</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script>
+        // 放在 head 里执行，防止页面白光闪烁 (FOUC)
+        // 默认值改为 'dark'
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>My Bookshelf</h2>
+        <div id="bookshelf" class="bookshelf"></div>
+    </div>
+
+    <script>
+        async function loadCatalog() {
+            const res = await fetch('books/catalog.json');
+            const books = await res.json();
+            const shelf = document.getElementById('bookshelf');
+
+            books.forEach(book => {
+                shelf.innerHTML += `
+                    <div class="book-card" onclick="window.location.href='book.html?id=${book.id}'">
+                        <img src="${book.cover}" alt="Cover">
+                        <h3>${book.title}</h3>
+                        <p>${book.author}</p>
+                    </div>
+                `;
+            });
+        }
+        loadCatalog();
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script>
+        // 放在 head 里执行，防止页面白光闪烁 (FOUC)
+        // 默认值改为 'dark'
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="toolbar">
+            <button onclick="changeChapter(-1)">Prev</button>
+            <button onclick="window.location.href='book.html?id=' + bookId">TOC</button>
+            <button onclick="toggleTheme()">Theme</button>
+            <button onclick="changeChapter(1)">Next</button>
+        </div>
+
+        <div id="content" class="reader-content">Loading...</div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookId = urlParams.get('book');
+        let chapterIndex = parseInt(urlParams.get('chapter'));
+        let toc = [];
+
+        // 1. 主题切换逻辑 (保留用户偏好)
+        const themes = ['light', 'sepia', 'dark'];
+        let currentTheme = localStorage.getItem('theme') || 'dark'; // 默认切成 dark
+
+        function toggleTheme() {
+            let idx = themes.indexOf(currentTheme);
+            currentTheme = themes[(idx + 1) % themes.length];
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // 2. 加载章节内容
+        async function loadChapter() {
+            const tocRes = await fetch(`books/${bookId}/toc.json`);
+            toc = await tocRes.json();
+
+            const chapterFile = toc[chapterIndex].file;
+            const res = await fetch(`books/${bookId}/${chapterFile}`);
+            const htmlContent = await res.text();
+
+            // 使用 DOMParser 提取 EPUB 文件中 body 内的纯净 HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            document.getElementById('content').innerHTML = doc.body.innerHTML;
+
+            restoreProgress(); // 加载完内容后恢复滚动位置
+        }
+
+        // 3. 进度记忆逻辑
+        function saveProgress() {
+            const scrollPos = window.scrollY;
+            localStorage.setItem(`progress_${bookId}_${chapterIndex}`, scrollPos);
+        }
+
+        function restoreProgress() {
+            const savedPos = localStorage.getItem(`progress_${bookId}_${chapterIndex}`);
+            if (savedPos) {
+                window.scrollTo(0, parseInt(savedPos));
+            } else {
+                window.scrollTo(0, 0); // 回到顶部
+            }
+        }
+
+        // 4. 章节切换
+        function changeChapter(step) {
+            if (chapterIndex + step >= 0 && chapterIndex + step < toc.length) {
+                saveProgress(); // 切换前保存当前进度
+                window.location.href = `reader.html?book=${bookId}&chapter=${chapterIndex + step}`;
+            }
+        }
+
+        // 监听滚动，静默保存进度 (加入简单的防抖)
+        window.addEventListener('scroll', () => {
+            clearTimeout(window.scrollTimeout);
+            window.scrollTimeout = setTimeout(saveProgress, 500);
+        });
+
+        loadChapter();
+    </script>
+</body>
+</html>
