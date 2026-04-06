@@ -24,6 +24,13 @@
         </div>
 
         <div id="content" class="reader-content">Loading...</div>
+
+        <div class="toolbar">
+            <button onclick="changeChapter(-1)">Prev</button>
+            <button onclick="window.location.href='book.html?id=' + bookId">TOC</button>
+            <button onclick="toggleTheme()">Theme</button>
+            <button onclick="changeChapter(1)">Next</button>
+        </div>
     </div>
 
     <script>
