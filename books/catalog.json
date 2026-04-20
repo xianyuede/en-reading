@@ -4,5 +4,11 @@
     "title": "Unstoppable Us, Volume 1: How Humans Took Over the World",
     "author": "Yuval Noah Harari",
     "cover": "books/sapiens/cover.jpg"
+  },
+  {
+    "id": "sapiens_02",
+    "title": "Unstoppable Us Volume 2: Why the World Isn't Fair",
+    "author": "Yuval Noah Harari",
+    "cover": "books/sapiens_02/cover.jpg"
   }
 ]
