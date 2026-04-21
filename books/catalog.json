@@ -10,5 +10,11 @@
     "title": "Unstoppable Us Volume 2: Why the World Isn't Fair",
     "author": "Yuval Noah Harari",
     "cover": "books/sapiens_02/cover.jpg"
+  },
+  {
+    "id": "everything_history",
+    "title": "A Short History of Nearly Everything",
+    "author": "Bill Bryson",
+    "cover": "books/everything_history/cover.jpg"
   }
 ]
