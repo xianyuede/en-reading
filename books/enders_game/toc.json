@@ -1,0 +1,21 @@
+[
+  {"title": "About the Author", "file": "01_author.xhtml"},
+  {"title": "INTRODUCTION", "file": "02_intro.xhtml"},
+  {"title": "THIRD", "file": "03_c01.xhtml"},
+  {"title": "PETER", "file": "04_c02.xhtml"},
+  {"title": "GRAFF", "file": "05_c03.xhtml"},
+  {"title": "LAUNCH", "file": "06_c04.xhtml"},
+  {"title": "GAMES", "file": "07_c05.xhtml"},
+  {"title": "THE GIANT’S DRINK", "file": "08_c06.xhtml"},
+  {"title": "SALAMANDER", "file": "09_c07.xhtml"},
+  {"title": "RAT", "file": "10_c08.xhtml"},
+  {"title": "LOCKE AND DEMOSTHENES", "file": "11_c09.xhtml"},
+  {"title": "DRAGON", "file": "12_c10.xhtml"},
+  {"title": "VENI VIDI VICI", "file": "13_c11.xhtml"},
+  {"title": "BONZO", "file": "14_c12.xhtml"},
+  {"title": "VALENTINE", "file": "15_c13.xhtml"},
+  {"title": "ENDER’S TEACHER", "file": "16_c14.xhtml"},
+  {"title": "SPEAKER FOR THE DEAD", "file": "17_c15.xhtml"},
+  {"title": "TEASER - Read on for an excerpt from Ender’s Shadow", "file": "18_teaser.xhtml"},
+  {"title": "ENDER UNIVERSE - Ender Series", "file": "19_enders_series.xhtml"}
+]

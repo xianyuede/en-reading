@@ -16,5 +16,11 @@
     "title": "A Short History of Nearly Everything",
     "author": "Bill Bryson",
     "cover": "books/everything_history/cover.jpg"
+  },
+    {
+    "id": "enders_game",
+    "title": "Ender’s Game",
+    "author": "Orson Scott Card",
+    "cover": "books/enders_game/cover.jpg"
   }
 ]
